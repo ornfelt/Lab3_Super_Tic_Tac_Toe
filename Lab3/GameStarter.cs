@@ -22,7 +22,16 @@ namespace Lab3
         {
             // Validate input etc
             ValidateInput validateInput = new ValidateInput();
-            if (validateInput.InputIsValid(input))
+            bool inputIsValid = false;
+            try
+            {
+                inputIsValid = validateInput.InputIsValid(input);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            if (inputIsValid)
                 this.state = new GameLoopState();
             else
                 this.state = new InvalidGameState();

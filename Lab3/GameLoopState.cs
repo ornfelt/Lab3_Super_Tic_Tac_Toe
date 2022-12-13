@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Lab3
 {
+    // This class handles the main loop of the game
     class GameLoopState : State
     {
         // Set that contains total plays in the game (hashset since they should be unique and have fast lookups)
@@ -21,6 +22,8 @@ namespace Lab3
         // GameStarter handles the state of the game. The state is changed in the game loop method below
         private GameStarter gameStarter;
         private InstanceCreater instanceCreater;
+        private int maxPlays;
+        private bool HasDepthOne;
 
         // Starting method for GameLoop
         public override void HandleGameState (String input, GameStarter gameStarter)
@@ -66,6 +69,8 @@ namespace Lab3
             totalPlaysCount = totalPlays.Count();
             // Keep track of valid plays
             int validPlays = 0;
+            HasDepthOne = !totalPlaysList[0].Contains(".");
+            maxPlays = HasDepthOne ? 7 : 80;
 
             for (int i = 0; (i < totalPlaysCount && !superBoardWon); i++)
             {
@@ -82,10 +87,6 @@ namespace Lab3
                         HandleNewPlay(value, playerOne);
                         validPlays++;
                     }
-                    else
-                    {
-                        Console.WriteLine("Couldn't add: " + value + " to player. addToPlayer set to: " + addToPlayerOne);
-                    }
                 }
                 else
                 {
@@ -95,12 +96,8 @@ namespace Lab3
                         HandleNewPlay(value, playerTwo);
                         validPlays++;
                     }
-                    else
-                    {
-                        Console.WriteLine("Couldn't add: " + value + " to player. addToPlayer set to: " + addToPlayerOne);
-                    }
                 }
-                if (validPlays == 80)
+                if (validPlays == maxPlays)
                 {
                     // No more plays can be made, change state to game over and break loop
                     gameStarter.ChangeState("tie", new GameOverState());
@@ -117,15 +114,20 @@ namespace Lab3
             bool newWin = player.HasWonBoard(value);
             String playerName = player.GetPlayerName();
             // If the player wins a small board run, check if that player has won the super board
-            if (newWin)
+
+            if (newWin && HasDepthOne)
             {
-                Console.WriteLine("Player: " + playerName + " won a board with: " + value);
+                player.PrintEndResults(HasDepthOne);
+                // Change state to game over state
+                superBoardWon = true;
+                gameStarter.ChangeState("single", new GameOverState());
+            }
+            else if (newWin)
+            {
                 superBoardWon = wc.HasWonSuperBoard(playerName);
-                Console.WriteLine(playerName + " has won super board: " + superBoardWon);
                 if (superBoardWon)
                 {
                     player.PrintEndResults();
-                    // Change state to game over state
                     gameStarter.ChangeState(playerName, new GameOverState());
                 }
             }

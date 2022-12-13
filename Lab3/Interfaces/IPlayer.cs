@@ -10,6 +10,7 @@
         int GetQueueSize();
         bool HasWonBoard(string newPlay);
         void PrintEndResults();
+        void PrintEndResults(bool hasDepthOne);
         void SetPlayerName(string newName);
     }
 }

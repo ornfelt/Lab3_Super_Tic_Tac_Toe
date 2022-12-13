@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Lab3
 {
+    // This is a factory class that creates new class instances
     class InstanceCreater
     {
         public IPlayer CreatePlayer(String playerName)

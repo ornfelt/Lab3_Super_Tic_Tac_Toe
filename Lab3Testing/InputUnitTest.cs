@@ -16,7 +16,7 @@ namespace Lab3Testing
             GameStarter gameStarter = new GameStarter(input);
             gameStarter.StartGame();
             // Assert
-            String endResult = WinTracker.GetInstance().getEndResult();
+            String endResult = WinTracker.GetInstance().GetEndResult();
             Assert.AreEqual("1.3, 0.1", endResult);
         }
     }

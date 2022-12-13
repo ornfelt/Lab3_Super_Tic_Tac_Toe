@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Lab3
 {
+    // OBS! This class uses two static keyword since it is a singleton class. I asked Anton Backe about this and he said it was ok.
     // Singleton class that keeps track of winners
     // Class that keeps track of winners
     public sealed class WinTracker : IWinTracker
@@ -59,11 +60,6 @@ namespace Lab3
         public void AddWinToDict(String board, String playerName)
         {
             boardWinsDict[board] = playerName;
-            Console.WriteLine();
-            foreach (KeyValuePair<string, string> bwd in boardWinsDict)
-            {
-                //Console.WriteLine("Key = {0}, Value = {1}", bwd.Key, bwd.Value);
-            }
         }
 
         // Public method for fetching the winsDict

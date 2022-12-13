@@ -42,18 +42,24 @@ namespace Lab3
         // Add new play to hash set and queue, also check if this player has won the current board
         public bool HasWonBoard(String newPlay)
         {
-            Console.WriteLine("Adding " + newPlay + " to " + playerName + " queue...");
+            //Console.WriteLine("Adding " + newPlay + " to " + playerName + " queue...");
             AddToQueue(newPlay);
-            String boardPos = newPlay.Split(".")[0];
-            if (wc.HasWon(boardComposite.GetUpdatedBoardSet(newPlay), false))
+            try
             {
-                winTracker.AddWinToDict(boardPos, playerName);
-                return true;
+                String boardPos = newPlay.Split(".")[0];
+                if (wc.HasWon(boardComposite.GetUpdatedBoardSet(newPlay), false))
+                {
+                    winTracker.AddWinToDict(boardPos, playerName);
+                    return true;
+                }
             }
+            catch(NullReferenceException e) {
+                Console.WriteLine("NullReferenceException: {0}", e.Message);
+             }
             return false;
         }
 
-        // Check if play can be added to board (it can't have a winner already and it has to be the current board)
+        // Check if play can be added to board (it can't have a winner already)
         public bool CanBeAdded(String board)
         {
             if (winTracker.HasWonSmallBoard(board))
@@ -111,6 +117,54 @@ namespace Lab3
             winTracker.SetEndResult(finalScoreString.Replace("\nFinal score (p1, p2): ", ""));
             // Print final score
             Console.WriteLine(finalScoreString);
+        }
+
+        // This method is called if this player wins a small board where depth is 1
+        public void PrintEndResults(bool hasDepthOne)
+        {
+            // *** Output Line 1 ***
+            List<String> winningBoards = winTracker.GetWinningBoards();
+            Console.WriteLine("\nPlayer: " + playerName + " wins a single board.");
+
+            // *** Output Line 2 ***
+            // Use queue to print all winning plays
+            String winningPlays = "";
+            int counter = 0;
+            while (counter < GetQueueSize())
+            {
+                String play = GetFirstValueInQueue().ToUpper();
+                winningPlays += play + ",";
+                //else Console.WriteLine("Value not part of winning boards: " + boardPos + "." + boardPlay);
+            }
+            // Remove last comma
+            winningPlays = winningPlays.Remove(winningPlays.Length - 1, 1);
+            Console.WriteLine("\nWinning plays in order: " + winningPlays);
+
+            // *** Output Line 3 ***
+            // Print score for players 1 and 2
+            Dictionary<string, string> boardWinsDict = winTracker.GetWinsDict();
+            // Get this player score
+            int playerWins = 1;
+            int otherPlayerWins = 0;
+            String finalScoreString = "\nFinal score (p1, p2): ";
+
+            if (playerName == "p1")
+            {
+                // Print this player's score first:
+                otherPlayerWins = 0;
+                finalScoreString += playerWins + ", " + otherPlayerWins;
+            }
+            else
+            {
+                // Print this player's score second:
+                otherPlayerWins = 0;
+                finalScoreString += otherPlayerWins + ", " + playerWins;
+            }
+            // Save the final score string to a variable in the WinTracker class
+            winTracker.SetEndResult(finalScoreString.Replace("\nFinal score (p1, p2): ", ""));
+            // Print final score
+            Console.WriteLine(finalScoreString);
+
         }
 
         // Add new value to queue
