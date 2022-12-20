@@ -10,7 +10,7 @@ namespace Lab3
     {
         // Set that contains total plays in the game (hashset since they should be unique and have fast lookups)
         private HashSet<String> totalPlays;
-        private IPlayer playerOne, playerTwo;
+        private IPlayer playerOne, playerTwo, currPlayer;
         private int totalPlaysCount = 0;
         private string playerOneName, playerTwoName;
         private IWinChecker wc;
@@ -77,26 +77,16 @@ namespace Lab3
                 value = totalPlaysList[i];
                 boardPos = value.Split(".")[0];
 
-                if (addToPlayerOne)
-                {
-                    // Check if new play can be played on small board (the small board shouldn't have a winner already)
-                    if (playerOne.CanBeAdded(boardPos))
-                    {
-                        // Toggle addToPlayerOne so that next value is added to p2
-                        addToPlayerOne = !addToPlayerOne;
-                        HandleNewPlay(value, playerOne);
-                        validPlays++;
-                    }
-                }
-                else
-                {
-                    if (playerTwo.CanBeAdded(boardPos))
-                    {
-                        addToPlayerOne = !addToPlayerOne;
-                        HandleNewPlay(value, playerTwo);
-                        validPlays++;
-                    }
-                }
+                currPlayer = addToPlayerOne ? playerOne : playerTwo;
+				// Check if new play can be played on small board (the small board shouldn't have a winner already)
+				if (currPlayer.CanBeAdded(boardPos))
+				{
+					// Toggle addToPlayerOne so that next value is added to other player
+					addToPlayerOne = !addToPlayerOne;
+					HandleNewPlay(value, currPlayer);
+					validPlays++;
+				}
+
                 if (validPlays == maxPlays)
                 {
                     // No more plays can be made, change state to game over and break loop
