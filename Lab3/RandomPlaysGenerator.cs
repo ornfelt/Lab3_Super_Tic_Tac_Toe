@@ -15,7 +15,8 @@ namespace Lab3
             List<String> randomList = new List<String>();
             InitBoardNames();
             int r;
-            for (int i = 0; i < superBoardNames.Count; i++)
+            int superBoardNamesCount = superBoardNames.Count;
+            for (int i = 0; i < superBoardNamesCount; i++)
             {
                 r = rnd.Next(superBoardNames.Count);
                 randomList.Add(superBoardNames[r]);

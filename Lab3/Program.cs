@@ -18,6 +18,9 @@ namespace Lab3
                 // Examples of invalid inputs 
                 // Depth 1
                 //input = "NW,NC,CW,CC,SW";
+                //input = "CC,NC,CW,SC,CE";
+                //input = "CC,NC,CW,CE,NW,SW,SE";
+
                 //input = "NW.CC, NC.CC,NW.NW, NE.CC, NW.SE, CE.CG, CW.CC";
                 //input = "adasdasda";
                 //input = "NW.CC, NC.CC,NW.NW, NE.CC, NW.SE, CE.C, CW.CC, SE.CC, CW.NW, CC.CC, CW.SE, CC.NW, CC.SE, CE.NW, SW.CC, CE.SE, SW.NW, SE.SE, SW.SE";
@@ -32,6 +35,7 @@ namespace Lab3
             RandomPlaysGenerator randomPlaysGenerator = new RandomPlaysGenerator();
             //string randomPlays = randomPlaysGenerator.GetRandomPlays().ToUpper();
             string randomPlays = randomPlaysGenerator.GetRandomPlaysSameBoard().ToUpper();
+            //Console.WriteLine("Random plays len: " +  randomPlays.Split(",").Length);
             Console.WriteLine("Random plays: " + randomPlays);
             input = randomPlays;
 
