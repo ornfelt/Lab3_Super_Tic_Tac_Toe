@@ -15,7 +15,7 @@ namespace Lab3
         private List<String> winningBoards;
         private static WinTracker instance = null;
         private String[] boardNames = { "nw", "nc", "ne", "cw", "cc", "ce", "sw", "sc", "se" };
-        private String endResult;
+        private String endResult = null;
 
         // Public constructor that gets the current instance or creates a new one
         public static WinTracker GetInstance()
@@ -84,6 +84,11 @@ namespace Lab3
         public void SetEndResult(String res)
         {
             endResult = res;
+        }
+
+        public void ResetTracker()
+        {
+            instance = null;
         }
     }
 }

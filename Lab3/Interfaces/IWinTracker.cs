@@ -12,5 +12,6 @@ namespace Lab3
         Dictionary<string, string> GetWinsDict();
         bool HasWonSmallBoard(string board);
         void SetEndResult(string res);
+        void ResetTracker();
     }
 }

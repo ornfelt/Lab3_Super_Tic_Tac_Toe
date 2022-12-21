@@ -29,8 +29,29 @@ namespace Lab3
                 input = args[0];
             }
 
+            RandomPlaysGenerator randomPlaysGenerator = new RandomPlaysGenerator();
+            //string randomPlays = randomPlaysGenerator.GetRandomPlays().ToUpper();
+            string randomPlays = randomPlaysGenerator.GetRandomPlaysSameBoard().ToUpper();
+            Console.WriteLine("Random plays: " + randomPlays);
+            input = randomPlays;
+
             GameStarter gameStarter = new GameStarter(input);
             gameStarter.StartGame();
+
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    RandomPlaysGenerator randomPlaysGenerator = new RandomPlaysGenerator();
+            //    string randomPlays = randomPlaysGenerator.GetRandomPlaysSameBoard().ToUpper();
+            //    input = randomPlays;
+
+            //    GameStarter gameStarter = new GameStarter(input);
+            //    gameStarter.StartGame();
+            //    Console.WriteLine("------------------------------------------------------------------");
+
+            //  // Reset WinTracker
+            //  InstanceCreater ic = new InstanceCreater();
+            //  ic.GetWinTracker().ResetTracker();
+            //}
         }
     }
 }

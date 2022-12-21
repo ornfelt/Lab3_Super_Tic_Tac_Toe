@@ -24,6 +24,8 @@ namespace Lab3
         private InstanceCreater instanceCreater;
         private int maxPlays;
         private bool HasDepthOne;
+        // New list for visualizing final valid plays
+        List<String> finalValidPlays = new List<String>();
 
         // Starting method for GameLoop
         public override void HandleGameState (String input, GameStarter gameStarter)
@@ -81,6 +83,7 @@ namespace Lab3
 				// Check if new play can be played on small board (the small board shouldn't have a winner already)
 				if (currPlayer.CanBeAdded(boardPos))
 				{
+                    finalValidPlays.Add(value);
 					// Toggle addToPlayerOne so that next value is added to other player
 					addToPlayerOne = !addToPlayerOne;
 					HandleNewPlay(value, currPlayer);
@@ -95,7 +98,11 @@ namespace Lab3
                 }
             }
             // If this part is reached, the game in unfinished
-            if (!superBoardWon) gameStarter.ChangeState("unfinished", new GameOverState());
+            if (!superBoardWon)
+            {
+                gameStarter.ChangeState("unfinished", new GameOverState());
+                instanceCreater.GetResultVisualizer().VisualizePlays(finalValidPlays, HasDepthOne);
+            }
         }
 
         // Handle the new play
@@ -111,6 +118,7 @@ namespace Lab3
                 // Change state to game over state
                 superBoardWon = true;
                 gameStarter.ChangeState("single", new GameOverState());
+                instanceCreater.GetResultVisualizer().VisualizePlays(finalValidPlays, HasDepthOne);
             }
             else if (newWin)
             {
@@ -119,6 +127,7 @@ namespace Lab3
                 {
                     player.PrintEndResults();
                     gameStarter.ChangeState(playerName, new GameOverState());
+                    instanceCreater.GetResultVisualizer().VisualizePlays(finalValidPlays, HasDepthOne);
                 }
             }
         }

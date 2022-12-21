@@ -21,5 +21,10 @@ namespace Lab3
         {
             return WinTracker.GetInstance();
         }
+
+        public IResultVisualizer GetResultVisualizer()
+        {
+            return ResultVisualizer.GetInstance();
+        }
     }
 }

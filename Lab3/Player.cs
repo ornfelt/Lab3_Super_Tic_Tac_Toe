@@ -62,10 +62,11 @@ namespace Lab3
         // Check if play can be added to board (it can't have a winner already)
         public bool CanBeAdded(String board)
         {
-            if (winTracker.HasWonSmallBoard(board))
-                return false;
-            else
-                return true;
+            return (!winTracker.HasWonSmallBoard(board));
+            //if (winTracker.HasWonSmallBoard(board))
+            //    return false;
+            //else
+            //    return true;
         }
 
         // This method is called if this player wins the super board
@@ -164,7 +165,6 @@ namespace Lab3
             winTracker.SetEndResult(finalScoreString.Replace("\nFinal score (p1, p2): ", ""));
             // Print final score
             Console.WriteLine(finalScoreString);
-
         }
 
         // Add new value to queue
