@@ -1,4 +1,4 @@
-# University project in master's program - Super Tic-Tac-Toe (Ultimate Tic-Tac-Toe)
+# Lab assignment at Uppsala university Master's Programme - Super Tic-Tac-Toe (Ultimate Tic-Tac-Toe)
 
 ## Example
 
