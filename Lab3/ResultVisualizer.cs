@@ -69,7 +69,6 @@ namespace Lab3
             //Console.WriteLine("DepthOnePrint...");
         }
 
-
         // Add tuple indexes to each board name, like this:
         // NW : 0,0
         // NC : 0,1
@@ -80,12 +79,15 @@ namespace Lab3
             int posCountTwo = 0;
             foreach (string boardName in boardNames)
             {
-                boardPositions.Add(boardName, new Tuple<int, int>(posCountOne,posCountTwo));
-                posCountTwo++;
-                if (posCountTwo % 3 == 0)
+                if (!boardPositions.ContainsKey(boardName))
                 {
-                    posCountTwo = 0;
-                    posCountOne++;
+                    boardPositions.Add(boardName, new Tuple<int, int>(posCountOne,posCountTwo));
+                    posCountTwo++;
+                    if (posCountTwo % 3 == 0)
+                    {
+                        posCountTwo = 0;
+                        posCountOne++;
+                    }
                 }
             }
 
@@ -132,7 +134,8 @@ namespace Lab3
             //matrixIndexes.ForEach(p => Console.WriteLine(p));
             for (int i = 0; i < matrixIndexes.Count; i++)
             {
-                superBoardsDict.Add(superBoardNames[i], matrixIndexes[i]);
+                if (!superBoardsDict.ContainsKey(superBoardNames[i]))
+                    superBoardsDict.Add(superBoardNames[i], matrixIndexes[i]);
             }
 
             // Use this for printing the values in dictionary
